@@ -1,0 +1,22 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/rkostevka/js-constructor.git"
+  },
+  "keywords": [
+    "javascript"
+  ],
+  "author": "Ruslana Kostevka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rkostevka/js-constructor/issues"
+  },
+  "homepage": "https://github.com/rkostevka/js-constructor#readme"
+}
