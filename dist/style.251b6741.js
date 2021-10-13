@@ -117,40 +117,79 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"index.js":[function(require,module,exports) {
-// import { model } from "./models/model";
-// import "./styles/style.css";
-// import { templates } from "./templates";
-// const $site = document.querySelector('#site');
-// model.forEach(block => {
-// 	const toHtml = templates[block.type];
-// 	if(toHtml) {
-// 		$site.insertAdjacentHTML('beforeend', toHtml(block));
-// 	}
-// })
-var model = [{
-  type: 'title',
-  value: 'hello world JS'
-}, {
-  type: 'text',
-  value: 'Here we go with some text'
-}, {
-  type: 'columns',
-  value: ['1111111', '2222222', '3333333']
-}];
-var $site = document.querySelector('#site');
-model.forEach(function (block) {
-  var html = '';
+})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
 
-  if (block.type === 'title') {
-    html = "\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm\">\n\t\t\t\t\t<h1>".concat(block.value, "</h1>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-  } else if (block.type === 'text') {
-    html = "\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm\">\n\t\t\t\t\t<p>".concat(block.value, "</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-  } else if (block.type === "columns") {}
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
 
-  $site.insertAdjacentHTML('beforeend', html);
-});
-},{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/style.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -354,5 +393,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/src.e31bb0bc.js.map
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
+//# sourceMappingURL=/style.251b6741.js.map
