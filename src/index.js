@@ -12,36 +12,70 @@
 // })
 
 const model = [
-	{type: 'title', value: 'hello world JS'},
-	{type: 'text', value: 'Here we go with some text'},
-	{type: 'columns', value: [
-		'1111111',
-		'2222222',
-		'3333333'
-	]}
-]
-const $site = document.querySelector('#site');
+	{
+		type: "title",
+		value: {
+			name: "SACHA DUBOIS",
+			position: "SOFTWARE DEVELOPER",
+		},
+	},
+	{
+		type: "info",
+		value: {
+			block1: {
+				title: "PERSONAL PROFILE",
+				text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby.",
+			},
+			block2: {
+				title: "AREAS OF EXPERTISE",
+				text: [
+					"System AnalysisUser Research",
+					"Object-Oriented Design",
+					"Optimization",
+					"Machine LearningAgile Methodology",
+					"Database Modelling",
+					"Software Testing and Debugging",
+				],
+			},
+			block3: {
+				title: "CONTACT INFO",
+				text: [
+					"Office Address: 123 Anywhere St., Any City, State, Country 12345",
+					"Email: hello@reallygreatsite.com",
+					"Portfolio: www.reallygreatsite.com",
+					"LinkedIn: @reallygreatsite",
+				],
+			},
+		},
+	},
+];
+const $sidebar = document.querySelector("#sidebar-box");
 
-model.forEach(block => {
+model.forEach(item => {
 	let html = '';
-	if(block.type === 'title') {
+	if(item.type === 'title') {
 		html = `
-			<div class="row">
-				<div class="col-sm">
-					<h1>${block.value}</h1>
-				</div>
+			<div class="sidebar__title title">
+				<h1 class="title__name">${item.value.name}</h1>
+				<h4 class="title__position">${item.value.position}</h4>
 			</div>
+			<div class="sidebar__line"></div>
 		`;
-	} else if(block.type === 'text') {
-		html = `
-			<div class="row">
-				<div class="col-sm">
-					<p>${block.value}</p>
+	} else if(item.type === 'info') {
+		html = `<div class="sidebar__info info">`;
+		Object.entries(item.value).forEach(([key, val]) => {
+			html += `
+				<div class="info__box">
+					<div class="info__title">
+						<h5>${val.title}</h5>
+					</div>
+					<div class="info__text">
+						${Array.isArray(val.text) ? val.text.join("<br>") : val.text}
+					</div>
 				</div>
-			</div>
-		`;
-	} else if (block.type === "columns") {
-
+			`;
+		});
+		html += `</div>`;
 	}
-	$site.insertAdjacentHTML('beforeend', html);
+	$sidebar.insertAdjacentHTML("beforeend", html);
 })

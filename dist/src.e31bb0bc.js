@@ -118,6 +118,18 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   return newRequire;
 })({"index.js":[function(require,module,exports) {
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 // import { model } from "./models/model";
 // import "./styles/style.css";
 // import { templates } from "./templates";
@@ -129,26 +141,47 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 // 	}
 // })
 var model = [{
-  type: 'title',
-  value: 'hello world JS'
+  type: "title",
+  value: {
+    name: "SACHA DUBOIS",
+    position: "SOFTWARE DEVELOPER"
+  }
 }, {
-  type: 'text',
-  value: 'Here we go with some text'
-}, {
-  type: 'columns',
-  value: ['1111111', '2222222', '3333333']
+  type: "info",
+  value: {
+    block1: {
+      title: "PERSONAL PROFILE",
+      text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby."
+    },
+    block2: {
+      title: "AREAS OF EXPERTISE",
+      text: ["System AnalysisUser Research", "Object-Oriented Design", "Optimization", "Machine LearningAgile Methodology", "Database Modelling", "Software Testing and Debugging"]
+    },
+    block3: {
+      title: "CONTACT INFO",
+      text: ["Office Address: 123 Anywhere St., Any City, State, Country 12345", "Email: hello@reallygreatsite.com", "Portfolio: www.reallygreatsite.com", "LinkedIn: @reallygreatsite"]
+    }
+  }
 }];
-var $site = document.querySelector('#site');
-model.forEach(function (block) {
+var $sidebar = document.querySelector("#sidebar-box");
+model.forEach(function (item) {
   var html = '';
 
-  if (block.type === 'title') {
-    html = "\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm\">\n\t\t\t\t\t<h1>".concat(block.value, "</h1>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-  } else if (block.type === 'text') {
-    html = "\n\t\t\t<div class=\"row\">\n\t\t\t\t<div class=\"col-sm\">\n\t\t\t\t\t<p>".concat(block.value, "</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t");
-  } else if (block.type === "columns") {}
+  if (item.type === 'title') {
+    html = "\n\t\t\t<div class=\"sidebar__title title\">\n\t\t\t\t<h1 class=\"title__name\">".concat(item.value.name, "</h1>\n\t\t\t\t<h4 class=\"title__position\">").concat(item.value.position, "</h4>\n\t\t\t</div>\n\t\t\t<div class=\"sidebar__line\"></div>\n\t\t");
+  } else if (item.type === 'info') {
+    html = "<div class=\"sidebar__info info\">";
+    Object.entries(item.value).forEach(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          key = _ref2[0],
+          val = _ref2[1];
 
-  $site.insertAdjacentHTML('beforeend', html);
+      html += "\n\t\t\t\t<div class=\"info__box\">\n\t\t\t\t\t<div class=\"info__title\">\n\t\t\t\t\t\t<h5>".concat(val.title, "</h5>\n\t\t\t\t\t</div>\n\t\t\t\t\t<div class=\"info__text\">\n\t\t\t\t\t\t").concat(Array.isArray(val.text) ? val.text.join("<br>") : val.text, "\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t");
+    });
+    html += "</div>";
+  }
+
+  $sidebar.insertAdjacentHTML("beforeend", html);
 });
 },{}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
@@ -178,7 +211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49591" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59178" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
