@@ -1,27 +1,50 @@
-// import image from './assets/image.jpeg';
-// import {Block} from './classes/block';
 
-// export const model = [
-// 	new Block("title", "Hello from JS", {
-// 		tag: "h2",
-// 			styles: {
-// 				background: "linear-gradient(to right, #ff0099, #493240)",
-// 				color: "#fff",
-// 				padding: "1rem",
-// 				"text-align": "center"
-// 			}
-// 	}),
-// 	{ type: "title", value: "Hello from JS", options: {
-// 			tag: "h2",
-// 			styles: {
-// 				background: "linear-gradient(to right, #ff0099, #493240)",
-// 				color: "#fff",
-// 				padding: "1rem",
-// 				"text-align": "center"
-// 			}
-// 		}
-// 	},
-// 	{ type: "text", value: "Here we go with some text" },
-// 	{ type: "columns", value: ["1111111", "2222222", "3333333", "4444444"] },
-// 	{ type: "image", value: image }
-// ];
+import image from '../assets/photo.jpg';
+export const model = [
+	{
+		type: "image",
+		value: image,
+	},
+	{
+		type: "title",
+		value: {
+			name: "SACHA DUBOIS",
+			position: "SOFTWARE DEVELOPER",
+		},
+		options: {
+			styles: {
+				background: "#ff0000",
+				color: "#fff"
+			}
+		}
+	},
+	{
+		type: "info",
+		value: {
+			block1: {
+				title: "PERSONAL PROFILE",
+				text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby.",
+			},
+			block2: {
+				title: "AREAS OF EXPERTISE",
+				text: [
+					"System AnalysisUser Research",
+					"Object-Oriented Design",
+					"Optimization",
+					"Machine LearningAgile Methodology",
+					"Database Modelling",
+					"Software Testing and Debugging",
+				],
+			},
+			block3: {
+				title: "CONTACT INFO",
+				text: [
+					"Office Address: 123 Anywhere St., Any City, State, Country 12345",
+					"Email: hello@reallygreatsite.com",
+					"Portfolio: www.reallygreatsite.com",
+					"LinkedIn: @reallygreatsite",
+				],
+			},
+		},
+	},
+];

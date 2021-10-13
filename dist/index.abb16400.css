@@ -1,5 +1,5 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap";
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
 html{
 	height: 100%;
 }
@@ -33,7 +33,6 @@ footer .container {
 	display: flex;
 	justify-content: space-between;
 }
-
 .selector-for-some-widget {
 	box-sizing: content-box;
 }
@@ -49,10 +48,7 @@ footer .container {
 .content-col {
 	flex: 1 1 auto;
 }
-
 /* HEADER */
-
-
 /* SIDEBAR */
 .sidebar {
 	border: 5px solid #10375D;
@@ -91,8 +87,6 @@ h4.title__position {
 .info__text {
 	color: #07637A;
 }
-
-
 /* CONTENT */
 .content {
 	margin: 0 20px;
@@ -140,3 +134,4 @@ h4.title__position {
 	content: '-';
 	padding: 0 5px;
 }
+/*# sourceMappingURL=index.abb16400.css.map */

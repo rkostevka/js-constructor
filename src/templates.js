@@ -1,26 +1,45 @@
-// import { row, col } from "./utils";
+import {css} from './utils'
+function image(item) {
+	return `
+		<div class="image-container">
+			<div class="image-container__img">
+				<img src="${item.value}" alt="my photo" class="img-fluid">
+			</div>
+		</div>
+	`;
+}
 
-// function title(block) {
-// 	const {tag = 'h1', styles} = block.options;
-// 	return row(col(`<${tag}>${block.value}</${tag}>`), styles);
-// }
+function title(item) {
+	const styles = css(item.options.styles);
 
-// function text(block) {
-// 	return row(col(`<p>${block.value}</p>`));
-// }
+	return `
+		<div class="sidebar__title title">
+			<h1 class="title__name" style="${styles}">${item.value.name}</h1>
+			<h4 class="title__position">${item.value.position}</h4>
+		</div>
+		<div class="sidebar__line"></div>
+	`;
+}
+function info(item) {
+	let html = `<div class="sidebar__info info">`;
+	Object.entries(item.value).forEach(([key, val]) => {
+		html += `
+				<div class="info__box">
+					<div class="info__title">
+						<h5>${val.title}</h5>
+					</div>
+					<div class="info__text">
+						${Array.isArray(val.text) ? val.text.join("<br>") : val.text}
+					</div>
+				</div>
+			`;
+	});
+	html += `</div>`;
+	return html;
+}
 
-// function columns(block) {
-// 	const html = block.value.map((item) => col(item));
-// 	return row(html.join(""));
-// }
-
-// function image(block) {
-// 	return row(`<img src="${block.value}" />`);
-// }
-
-// export const templates = {
-// 	title,
-// 	text,
-// 	columns,
-// 	image,
-// };
+export const templates = {
+	image,
+	title,
+	info
+};

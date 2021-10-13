@@ -1,3 +1,4 @@
+@import "https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap";
 
 html{
 	height: 100%;
@@ -6,10 +7,10 @@ body{
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	background-color: #FEFEF9;
-	font-family: 'Roboto Condensed', sans-serif;
-	color: #10375d;
-	font-size: 1em;
+	background-color: #FEFEF9!important;
+	font-family: 'Roboto Condensed', sans-serif!important;
+	color: #10375d!important;
+	font-size: 1em!important;
 }
 header{
    /* 0 flex-grow, 0 flex-shrink, auto flex-basis */
@@ -32,7 +33,6 @@ footer .container {
 	display: flex;
 	justify-content: space-between;
 }
-
 .selector-for-some-widget {
 	box-sizing: content-box;
 }
@@ -48,13 +48,11 @@ footer .container {
 .content-col {
 	flex: 1 1 auto;
 }
-
 /* HEADER */
-
-
 /* SIDEBAR */
 .sidebar {
 	border: 5px solid #10375D;
+	padding: 0 35px 40px 35px;
 }
 .sidebar__box {
 	padding: 0 35px 40px 35px;
@@ -89,8 +87,6 @@ h4.title__position {
 .info__text {
 	color: #07637A;
 }
-
-
 /* CONTENT */
 .content {
 	margin: 0 20px;
@@ -138,5 +134,3 @@ h4.title__position {
 	content: '-';
 	padding: 0 5px;
 }
-
-/*# sourceMappingURL=/style.251b6741.css.map */

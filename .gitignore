@@ -10,3 +10,6 @@ node_modules
 .cache/f8/16af2b6d94bd091e8cdf53d0deefa7.json
 .cache/08/8371064a8fc0020d75c7029f71518a.json
 .cache/73/6514e1c094e5aabdd98769a447d5e0.json
+.parcel-cache/data.mdb
+.parcel-cache/f21777ae42d6203a.txt
+.parcel-cache/lock.mdb
