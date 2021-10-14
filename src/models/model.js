@@ -1,26 +1,23 @@
 
 import image from '../assets/photo.jpg';
+import {ImageBlock, TitleBlock, InfoBlock} from '../classes/block';
+
 export const model = [
-	{
-		type: "image",
-		value: image,
-	},
-	{
-		type: "title",
-		value: {
+	new ImageBlock(image, {}),
+	new TitleBlock(
+		{
 			name: "SACHA DUBOIS",
 			position: "SOFTWARE DEVELOPER",
 		},
-		options: {
+		{
 			styles: {
 				background: "#ff0000",
-				color: "#fff"
-			}
+				color: "#fff",
+			},
 		}
-	},
-	{
-		type: "info",
-		value: {
+	),
+	new InfoBlock(
+		{
 			block1: {
 				title: "PERSONAL PROFILE",
 				text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby.",
@@ -43,8 +40,8 @@ export const model = [
 					"Email: hello@reallygreatsite.com",
 					"Portfolio: www.reallygreatsite.com",
 					"LinkedIn: @reallygreatsite",
-				],
-			},
-		},
-	},
+				]
+			}
+		}
+	)
 ];

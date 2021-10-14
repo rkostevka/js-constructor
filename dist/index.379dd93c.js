@@ -475,56 +475,48 @@ parcelHelpers.export(exports, "model", ()=>model
 );
 var _photoJpg = require("../assets/photo.jpg");
 var _photoJpgDefault = parcelHelpers.interopDefault(_photoJpg);
+var _block = require("../classes/block");
 const model = [
-    {
-        type: "image",
-        value: _photoJpgDefault.default
-    },
-    {
-        type: "title",
-        value: {
-            name: "SACHA DUBOIS",
-            position: "SOFTWARE DEVELOPER"
+    new _block.ImageBlock(_photoJpgDefault.default, {
+    }),
+    new _block.TitleBlock({
+        name: "SACHA DUBOIS",
+        position: "SOFTWARE DEVELOPER"
+    }, {
+        styles: {
+            background: "#ff0000",
+            color: "#fff"
+        }
+    }),
+    new _block.InfoBlock({
+        block1: {
+            title: "PERSONAL PROFILE",
+            text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby."
         },
-        options: {
-            styles: {
-                background: "#ff0000",
-                color: "#fff"
-            }
+        block2: {
+            title: "AREAS OF EXPERTISE",
+            text: [
+                "System AnalysisUser Research",
+                "Object-Oriented Design",
+                "Optimization",
+                "Machine LearningAgile Methodology",
+                "Database Modelling",
+                "Software Testing and Debugging", 
+            ]
+        },
+        block3: {
+            title: "CONTACT INFO",
+            text: [
+                "Office Address: 123 Anywhere St., Any City, State, Country 12345",
+                "Email: hello@reallygreatsite.com",
+                "Portfolio: www.reallygreatsite.com",
+                "LinkedIn: @reallygreatsite", 
+            ]
         }
-    },
-    {
-        type: "info",
-        value: {
-            block1: {
-                title: "PERSONAL PROFILE",
-                text: "I am a software developer and systems architect with experience in designing, coding, and testing complex systems. I'm highly proficient in C#, Java, and Ruby."
-            },
-            block2: {
-                title: "AREAS OF EXPERTISE",
-                text: [
-                    "System AnalysisUser Research",
-                    "Object-Oriented Design",
-                    "Optimization",
-                    "Machine LearningAgile Methodology",
-                    "Database Modelling",
-                    "Software Testing and Debugging", 
-                ]
-            },
-            block3: {
-                title: "CONTACT INFO",
-                text: [
-                    "Office Address: 123 Anywhere St., Any City, State, Country 12345",
-                    "Email: hello@reallygreatsite.com",
-                    "Portfolio: www.reallygreatsite.com",
-                    "LinkedIn: @reallygreatsite", 
-                ]
-            }
-        }
-    }, 
+    })
 ];
 
-},{"../assets/photo.jpg":"dPzvZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"dPzvZ":[function(require,module,exports) {
+},{"../assets/photo.jpg":"dPzvZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../classes/block":"6pKUI"}],"dPzvZ":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('hjDlF') + "photo.ad4e50ed.jpg" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
@@ -592,7 +584,39 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"4nrJv":[function(require,module,exports) {
+},{}],"6pKUI":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "ImageBlock", ()=>ImageBlock
+);
+parcelHelpers.export(exports, "TitleBlock", ()=>TitleBlock
+);
+parcelHelpers.export(exports, "InfoBlock", ()=>InfoBlock
+);
+class Block {
+    constructor(type, value, options){
+        this.type = type;
+        this.value = value;
+        this.options = options;
+    }
+}
+class ImageBlock extends Block {
+    constructor(value, options){
+        super('image', value, options);
+    }
+}
+class TitleBlock extends Block {
+    constructor(value, options){
+        super('title', value, options);
+    }
+}
+class InfoBlock extends Block {
+    constructor(value, options){
+        super('info', value, options);
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"4nrJv":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "templates", ()=>templates
