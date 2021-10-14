@@ -460,15 +460,13 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"hD4hw":[function(require,module,exports) {
 var _model = require("./models/model");
-var _templates = require("./templates");
 var _styleCss = require("./styles/style.css");
 const $sidebar = document.querySelector("#sidebar");
 _model.model.forEach((item)=>{
-    const toHtml = _templates.templates[item.type];
-    if (toHtml) $sidebar.insertAdjacentHTML("beforeend", toHtml(item));
+    $sidebar.insertAdjacentHTML("beforeend", item.toHtml());
 });
 
-},{"./models/model":"21qSh","./templates":"4nrJv","./styles/style.css":"iKArx"}],"21qSh":[function(require,module,exports) {
+},{"./models/model":"21qSh","./styles/style.css":"iKArx"}],"21qSh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "model", ()=>model
@@ -593,58 +591,54 @@ parcelHelpers.export(exports, "TitleBlock", ()=>TitleBlock
 );
 parcelHelpers.export(exports, "InfoBlock", ()=>InfoBlock
 );
+var _utils = require("../utils");
 class Block {
     constructor(type, value, options){
         this.type = type;
         this.value = value;
         this.options = options;
     }
+    toHtml() {
+        throw new Error("Method toHtml must be implemented");
+    }
 }
 class ImageBlock extends Block {
     constructor(value, options){
-        super('image', value, options);
+        super("image", value, options);
+    }
+    toHtml() {
+        return `
+			<div class="image-container">
+				<div class="image-container__img">
+					<img src="${this.value}" alt="my photo" class="img-fluid">
+				</div>
+			</div>
+		`;
     }
 }
 class TitleBlock extends Block {
     constructor(value, options){
-        super('title', value, options);
+        super("title", value, options);
+    }
+    toHtml() {
+        const styles = _utils.css(this.options.styles);
+        return `
+		<div class="sidebar__title title">
+			<h1 class="title__name" style="${styles}">${this.value.name}</h1>
+			<h4 class="title__position">${this.value.position}</h4>
+		</div>
+		<div class="sidebar__line"></div>
+	`;
     }
 }
 class InfoBlock extends Block {
     constructor(value, options){
-        super('info', value, options);
+        super("info", value, options);
     }
-}
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"4nrJv":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "templates", ()=>templates
-);
-var _utils = require("./utils");
-function image(item) {
-    return `
-		<div class="image-container">
-			<div class="image-container__img">
-				<img src="${item.value}" alt="my photo" class="img-fluid">
-			</div>
-		</div>
-	`;
-}
-function title(item) {
-    const styles = _utils.css(item.options.styles);
-    return `
-		<div class="sidebar__title title">
-			<h1 class="title__name" style="${styles}">${item.value.name}</h1>
-			<h4 class="title__position">${item.value.position}</h4>
-		</div>
-		<div class="sidebar__line"></div>
-	`;
-}
-function info(item) {
-    let html = `<div class="sidebar__info info">`;
-    Object.entries(item.value).forEach(([key, val])=>{
-        html += `
+    toHtml() {
+        let html = `<div class="sidebar__info info">`;
+        Object.entries(this.value).forEach(([key, val])=>{
+            html += `
 				<div class="info__box">
 					<div class="info__title">
 						<h5>${val.title}</h5>
@@ -654,17 +648,13 @@ function info(item) {
 					</div>
 				</div>
 			`;
-    });
-    html += `</div>`;
-    return html;
+        });
+        html += `</div>`;
+        return html;
+    }
 }
-const templates = {
-    image,
-    title,
-    info
-};
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","./utils":"lfIdr"}],"lfIdr":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../utils":"lfIdr"}],"lfIdr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "css", ()=>css
