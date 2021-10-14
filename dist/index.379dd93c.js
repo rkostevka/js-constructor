@@ -459,14 +459,13 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"hD4hw":[function(require,module,exports) {
+var _site = require("./classes/site");
 var _model = require("./models/model");
 var _styleCss = require("./styles/style.css");
-const $sidebar = document.querySelector("#sidebar");
-_model.model.forEach((item)=>{
-    $sidebar.insertAdjacentHTML("beforeend", item.toHtml());
-});
+const sidebar = new _site.Site('#sidebar');
+sidebar.render(_model.model);
 
-},{"./models/model":"21qSh","./styles/style.css":"iKArx"}],"21qSh":[function(require,module,exports) {
+},{"./models/model":"21qSh","./styles/style.css":"iKArx","./classes/site":"2Axr6"}],"21qSh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "model", ()=>model
@@ -593,8 +592,7 @@ parcelHelpers.export(exports, "InfoBlock", ()=>InfoBlock
 );
 var _utils = require("../utils");
 class Block {
-    constructor(type, value, options){
-        this.type = type;
+    constructor(value, options){
         this.value = value;
         this.options = options;
     }
@@ -604,7 +602,7 @@ class Block {
 }
 class ImageBlock extends Block {
     constructor(value, options){
-        super("image", value, options);
+        super(value, options);
     }
     toHtml() {
         return `
@@ -618,7 +616,7 @@ class ImageBlock extends Block {
 }
 class TitleBlock extends Block {
     constructor(value, options){
-        super("title", value, options);
+        super(value, options);
     }
     toHtml() {
         const styles = _utils.css(this.options.styles);
@@ -633,7 +631,7 @@ class TitleBlock extends Block {
 }
 class InfoBlock extends Block {
     constructor(value, options){
-        super("info", value, options);
+        super(value, options);
     }
     toHtml() {
         let html = `<div class="sidebar__info info">`;
@@ -666,6 +664,22 @@ function css(styles = {
     return Object.keys(styles).map(toString).join(';');
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"iKArx":[function() {},{}]},["lBB98","hD4hw"], "hD4hw", "parcelRequirea9e5")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"iKArx":[function() {},{}],"2Axr6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Site", ()=>Site
+);
+class Site {
+    constructor(selector){
+        this.$el = document.querySelector(selector);
+    }
+    render(model) {
+        model.forEach((item)=>{
+            this.$el.insertAdjacentHTML("beforeend", item.toHtml());
+        });
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["lBB98","hD4hw"], "hD4hw", "parcelRequirea9e5")
 
 //# sourceMappingURL=index.379dd93c.js.map

@@ -1,7 +1,6 @@
 import { css } from "../utils";
 class Block {
-	constructor(type, value, options) {
-		this.type = type;
+	constructor(value, options) {
 		this.value = value;
 		this.options = options;
 	}
@@ -12,7 +11,7 @@ class Block {
 
 export class ImageBlock extends Block {
 	constructor(value, options) {
-		super("image", value, options);
+		super(value, options);
 	}
 	toHtml() {
 		return `
@@ -27,7 +26,7 @@ export class ImageBlock extends Block {
 
 export class TitleBlock extends Block {
 	constructor(value, options) {
-		super("title", value, options);
+		super(value, options);
 	}
 	toHtml() {
 		const styles = css(this.options.styles);
@@ -44,7 +43,7 @@ export class TitleBlock extends Block {
 
 export class InfoBlock extends Block {
 	constructor(value, options) {
-		super("info", value, options);
+		super(value, options);
 	}
 	toHtml() {
 		let html = `<div class="sidebar__info info">`;
