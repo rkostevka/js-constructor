@@ -459,13 +459,98 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"hD4hw":[function(require,module,exports) {
+var _modals = require("./classes/Modals");
+var _editor = require("./classes/Editor");
 var _site = require("./classes/site");
 var _model = require("./models/model");
 var _styleCss = require("./styles/style.css");
-const sidebar = new _site.Site('#sidebar');
+//RENDER SIDEBAR
+//update sidebar
+const updateCallBack = (newBlock)=>{
+    _model.model.map((element)=>{
+        if (element.constructor.name === newBlock.constructor.name) element.value.name = newBlock.value.name;
+    });
+    console.log(_model.model);
+    sidebar.render(_model.model);
+    console.log('render from update');
+};
+//find #sidebar
+const sidebar = new _site.Site("#sidebar", updateCallBack);
+//Display all blocks of sidebar : ImageBlock, TitleBlock, InfoBlock
 sidebar.render(_model.model);
+//RENDER MODALS OF SIDEBAR
+//find #modals
+const modals = new _modals.Modals('#modals');
+//Display all modals of sidebar : ImageModal, TitleModal, InfoModal
+modals.render(_model.model);
+const s = new _editor.Editor("#sidebar", updateCallBack);
 
-},{"./models/model":"21qSh","./styles/style.css":"iKArx","./classes/site":"2Axr6"}],"21qSh":[function(require,module,exports) {
+},{"./classes/Modals":"fzsyn","./classes/site":"2Axr6","./models/model":"21qSh","./styles/style.css":"iKArx","./classes/Editor":"j8u39"}],"fzsyn":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Modals", ()=>Modals
+);
+class Modals {
+    constructor(selector){
+        this.$el = document.querySelector(selector);
+    }
+    render(model) {
+        model.forEach((item)=>{
+            this.$el.insertAdjacentHTML("beforeend", item.renderModal());
+        });
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"ciiiV":[function(require,module,exports) {
+exports.interopDefault = function(a) {
+    return a && a.__esModule ? a : {
+        default: a
+    };
+};
+exports.defineInteropFlag = function(a) {
+    Object.defineProperty(a, '__esModule', {
+        value: true
+    });
+};
+exports.exportAll = function(source, dest) {
+    Object.keys(source).forEach(function(key) {
+        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
+        Object.defineProperty(dest, key, {
+            enumerable: true,
+            get: function() {
+                return source[key];
+            }
+        });
+    });
+    return dest;
+};
+exports.export = function(dest, destName, get) {
+    Object.defineProperty(dest, destName, {
+        enumerable: true,
+        get: get
+    });
+};
+
+},{}],"2Axr6":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Site", ()=>Site
+);
+class Site {
+    constructor(selector, updateCallBack){
+        this.$el = document.querySelector(selector);
+        this.update = updateCallBack;
+    }
+    render(model) {
+        model.forEach((item)=>{
+            this.$el.insertAdjacentHTML("beforeend", item.toHtml());
+        });
+    }
+    clearHtml() {
+    }
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"21qSh":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "model", ()=>model
@@ -475,16 +560,16 @@ var _photoJpgDefault = parcelHelpers.interopDefault(_photoJpg);
 var _block = require("../classes/block");
 const model = [
     new _block.ImageBlock(_photoJpgDefault.default, {
-    }),
+    }, "imageModal"),
     new _block.TitleBlock({
-        name: "SACHA DUBOIS",
-        position: "SOFTWARE DEVELOPER"
+        name: "Sacha Dubois",
+        position: "Software developer"
     }, {
         styles: {
             background: "#ff0000",
             color: "#fff"
         }
-    }),
+    }, "titleModal"),
     new _block.InfoBlock({
         block1: {
             title: "PERSONAL PROFILE",
@@ -510,10 +595,11 @@ const model = [
                 "LinkedIn: @reallygreatsite", 
             ]
         }
-    })
+    }, {
+    }, "infoModal")
 ];
 
-},{"../assets/photo.jpg":"dPzvZ","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../classes/block":"6pKUI"}],"dPzvZ":[function(require,module,exports) {
+},{"../assets/photo.jpg":"dPzvZ","../classes/block":"6pKUI","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"dPzvZ":[function(require,module,exports) {
 module.exports = require('./helpers/bundle-url').getBundleURL('hjDlF') + "photo.ad4e50ed.jpg" + "?" + Date.now();
 
 },{"./helpers/bundle-url":"chiK4"}],"chiK4":[function(require,module,exports) {
@@ -551,36 +637,6 @@ exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
 exports.getOrigin = getOrigin;
 
-},{}],"ciiiV":[function(require,module,exports) {
-exports.interopDefault = function(a) {
-    return a && a.__esModule ? a : {
-        default: a
-    };
-};
-exports.defineInteropFlag = function(a) {
-    Object.defineProperty(a, '__esModule', {
-        value: true
-    });
-};
-exports.exportAll = function(source, dest) {
-    Object.keys(source).forEach(function(key) {
-        if (key === 'default' || key === '__esModule' || dest.hasOwnProperty(key)) return;
-        Object.defineProperty(dest, key, {
-            enumerable: true,
-            get: function() {
-                return source[key];
-            }
-        });
-    });
-    return dest;
-};
-exports.export = function(dest, destName, get) {
-    Object.defineProperty(dest, destName, {
-        enumerable: true,
-        get: get
-    });
-};
-
 },{}],"6pKUI":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
@@ -595,67 +651,161 @@ class Block {
     constructor(value, options){
         this.value = value;
         this.options = options;
+        this.editor = _utils.editor();
     }
     toHtml() {
         throw new Error("Method toHtml must be implemented");
     }
+    renderModal() {
+        throw new Error("Method toHtml must be implemented");
+    }
 }
 class ImageBlock extends Block {
-    constructor(value, options){
+    constructor(value, options, targetModal){
         super(value, options);
+        this.targetModal = targetModal;
     }
     toHtml() {
         return `
-			<div class="image-container">
+			<div class="image-container" data-bs-toggle="modal" data-bs-target="#${this.targetModal}">
 				<div class="image-container__img">
 					<img src="${this.value}" alt="my photo" class="img-fluid">
+				</div>
+				${this.editor}
+			</div>
+		`;
+    }
+    renderModal() {
+        return `
+			<div class="modal fade" id="${this.targetModal}" tabindex="-1" aria-labelledby="${this.targetModal}Label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form name="${this.targetModal}">
+							<div class="modal-header">
+								<h5 class="modal-title" id="${this.targetModal}Label">Edit image</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								image
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary">Save changes</button>
+							</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		`;
     }
 }
 class TitleBlock extends Block {
-    constructor(value, options){
+    constructor(value, options, targetModal){
         super(value, options);
+        this.targetModal = targetModal;
     }
     toHtml() {
         const styles = _utils.css(this.options.styles);
         return `
-		<div class="sidebar__title title">
-			<h1 class="title__name" style="${styles}">${this.value.name}</h1>
+		<div class="sidebar__title title" id="sidebar-title" data-bs-toggle="modal" data-bs-target="#${this.targetModal}">
+			<h1 class="title__name">${this.value.name}</h1>
 			<h4 class="title__position">${this.value.position}</h4>
+			${this.editor}
 		</div>
 		<div class="sidebar__line"></div>
 	`;
     }
+    renderModal() {
+        return `
+			<div class="modal fade" id="${this.targetModal}" tabindex="-1" aria-labelledby="${this.targetModal}Label" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form id="TitleBlock">
+							<div class="modal-header">
+								<h5 class="modal-title" id="${this.targetModal}Label">Edit ${Object.keys(this.value)}</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+							</div>
+							<div class="modal-body">
+								<div class="mb-3">
+									<label for="${this.targetModal}InputEmail1" class="form-label">Name</label>
+									<input type="text" class="form-control" id="name" value="${this.value.name}" placeholder="${this.value.name}" name="name">
+								</div>
+								<div class="mb-3">
+									<label for="${this.targetModal}InputEmail1" class="form-label">Position</label>
+									<input type="text" class="form-control" id="position" value="${this.value.position}" placeholder="${this.value.position}" name="position">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		`;
+    }
 }
 class InfoBlock extends Block {
-    constructor(value, options){
+    constructor(value, options, targetModal){
         super(value, options);
+        this.targetModal = targetModal;
     }
     toHtml() {
         let html = `<div class="sidebar__info info">`;
         Object.entries(this.value).forEach(([key, val])=>{
             html += `
-				<div class="info__box">
+				<div class="info__box" data-bs-toggle="modal" data-bs-target="#${this.targetModal + key}">
 					<div class="info__title">
 						<h5>${val.title}</h5>
 					</div>
 					<div class="info__text">
 						${Array.isArray(val.text) ? val.text.join("<br>") : val.text}
 					</div>
+					${this.editor}
 				</div>
 			`;
         });
         html += `</div>`;
         return html;
     }
+    renderModal() {
+        let html = '';
+        Object.entries(this.value).forEach(([key, val])=>{
+            html += `
+				<div class="modal fade" id="${this.targetModal + key}" tabindex="-1" aria-labelledby="${this.targetModal + key}Label" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form id="${this.targetModal}">
+								<div class="modal-header">
+									<h5 class="modal-title" id="${this.targetModal}Label">${val.title}</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+									<div class="mb-3">
+										<label for="formControl${this.targetModal}" class="form-label">Example textarea</label>
+										<textarea class="form-control" id="formControl${this.targetModal}" rows="3"></textarea>
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			`;
+        });
+        return html;
+    }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../utils":"lfIdr"}],"lfIdr":[function(require,module,exports) {
+},{"../utils":"lfIdr","@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"lfIdr":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "css", ()=>css
+);
+parcelHelpers.export(exports, "editor", ()=>editor
 );
 function css(styles = {
 }) {
@@ -663,23 +813,50 @@ function css(styles = {
     ;
     return Object.keys(styles).map(toString).join(';');
 }
+function editor() {
+    return `
+		<div class="edit-element">
+			Edit
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+				<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+			</svg>
+		</div>
+	`;
+}
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"iKArx":[function() {},{}],"2Axr6":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}],"iKArx":[function() {},{}],"j8u39":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "Site", ()=>Site
+parcelHelpers.export(exports, "Editor", ()=>Editor
 );
-class Site {
-    constructor(selector){
+var _model = require("../models/model");
+var _site = require("./site");
+class Editor {
+    constructor(selector, updateCallBack){
         this.$el = document.querySelector(selector);
+        this.$modals = document.querySelector("#modals");
+        this.update = updateCallBack;
+        this.init();
     }
-    render(model) {
-        model.forEach((item)=>{
-            this.$el.insertAdjacentHTML("beforeend", item.toHtml());
+    init() {
+        this.$modals.addEventListener("submit", this.add.bind(this));
+    }
+    add(event) {
+        event.preventDefault();
+        const modelTitle = event.target.id;
+        console.log(modelTitle);
+        _model.model.forEach((element)=>{
+            if (element.constructor.name === 'TitleBlock') {
+                element.value.name = event.target.name.value;
+                element.value.position = event.target.position.value;
+                while(this.$el.lastElementChild)this.$el.removeChild(this.$el.lastElementChild);
+                this.update(element);
+            } else element.constructor.name;
         });
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV"}]},["lBB98","hD4hw"], "hD4hw", "parcelRequirea9e5")
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"ciiiV","../models/model":"21qSh","./site":"2Axr6"}]},["lBB98","hD4hw"], "hD4hw", "parcelRequirea9e5")
 
 //# sourceMappingURL=index.379dd93c.js.map

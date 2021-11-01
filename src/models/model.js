@@ -3,18 +3,19 @@ import image from '../assets/photo.jpg';
 import {ImageBlock, TitleBlock, InfoBlock} from '../classes/block';
 
 export const model = [
-	new ImageBlock(image, {}),
+	new ImageBlock(image, {}, "imageModal"),
 	new TitleBlock(
 		{
-			name: "SACHA DUBOIS",
-			position: "SOFTWARE DEVELOPER",
+			name: "Sacha Dubois",
+			position: "Software developer",
 		},
 		{
 			styles: {
 				background: "#ff0000",
 				color: "#fff",
-			},
-		}
+			}
+		},
+		"titleModal"
 	),
 	new InfoBlock(
 		{
@@ -42,6 +43,9 @@ export const model = [
 					"LinkedIn: @reallygreatsite",
 				]
 			}
-		}
+		},
+		{},
+		"infoModal"
 	)
 ];
+

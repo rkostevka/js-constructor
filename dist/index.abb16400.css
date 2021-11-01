@@ -48,6 +48,12 @@ footer .container {
 .content-col {
 	flex: 1 1 auto;
 }
+.edit-element {
+	position: absolute;
+	top: 0;
+	right: 5px;
+	display: none;
+}
 /* HEADER */
 /* SIDEBAR */
 .sidebar {
@@ -87,6 +93,26 @@ h4.title__position {
 .info__text {
 	color: #07637A;
 }
+.sidebar__title, 
+.image-container,
+.info__box
+{
+	transition: all 0.3s ease 0s;
+	position: relative;
+}
+.sidebar__title:hover,
+.image-container:hover,
+.info__box:hover
+{
+	outline: 4px solid #07637A;
+	cursor: pointer;
+}
+.sidebar__title:hover .edit-element,
+.image-container:hover .edit-element,
+.info__box:hover .edit-element
+{
+	display: block;
+}
 /* CONTENT */
 .content {
 	margin: 0 20px;
@@ -120,6 +146,7 @@ h4.title__position {
 	padding: 10px 0;
 }
 .position__title {
+	
 }
 .position__title::after {
 	content: '|';
